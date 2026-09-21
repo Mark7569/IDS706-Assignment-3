@@ -44,6 +44,7 @@ I split the dataset into 80% training data and 20% testing data. The linear regr
 ## Visualization
 I created a scatter plot comparing the actual GLD prices with the values predicted by the linear regression model.
 The plot shows a strong positive relationship between actual and predicted GLD values. Most predictions are relatively close to the actual values, although larger prediction errors appear at higher GLD prices.
+
 ![Actual vs Predicted GLD Prices](gold_price_visualization.png)
 
 ## Pandas vs. Polars Comparison
