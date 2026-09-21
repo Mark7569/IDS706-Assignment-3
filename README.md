@@ -1,7 +1,13 @@
 # GOLD PRICE ANALYSIS
 
 ## Project Overview
-This project analyzes gold price data from 2015 to 2025 with Python and Pandas. The dataset also contains several financial market variables, including the S&P 500 (SPX), oil (USO), silver (SLV), and the EUR/USD exchange rate. The project explores the dataset through basic data inspection, filtering, grouping, visualization, and a simple linear regression model.
+This project analyzes gold price data from 2015 to 2025 with Python, Pandas, and polars. The dataset also contains several financial market variables, including the S&P 500 (SPX), oil (USO), silver (SLV), and the EUR/USD exchange rate. The project explores the dataset through basic data inspection, filtering, grouping, visualization, and a simple linear regression model.
+
+## Files
+- "gold_price_analysis.py"
+- "gold_price_visualization.png"
+- "pandas_vs_polars.py"
+- "rust_vs_python_intro.ipynb"
 
 ## Dataset
 The dataset was downloaded from Kaggle. It contains six variables and 2666 observations in total:
@@ -38,6 +44,18 @@ I split the dataset into 80% training data and 20% testing data. The linear regr
 ## Visualization
 I created a scatter plot comparing the actual GLD prices with the values predicted by the linear regression model.
 The plot shows a strong positive relationship between actual and predicted GLD values. Most predictions are relatively close to the actual values, although larger prediction errors appear at higher GLD prices.
+![Actual vs Predicted GLD Prices](gold_price_visualization.png)
+
+## Pandas vs. Polars Comparison
+I re-implemented the main data manipulation operations using Polars and compared them with my original Pandas implementation. Both approaches created a Year column, filtered observations where GLD was greater than 200, and calculated the average GLD price by year.
+
+The syntax is slightly different between the two libraries. Pandas uses direct DataFrame indexing and `groupby()`, while Polars uses expressions such as `pl.col()`, `filter()`, and `group_by()`.
+
+I also compared the runtime of the two implementations using `time.perf_counter()`:
+- Pandas runtime: 0.007119 seconds
+- Polars runtime: 0.002176 seconds
+
+In this run, Polars was about 3.27 times faster than Pandas. However, since this dataset contains only 2,666 observations and the measured runtimes are very short, this simple benchmark should not be interpreted as a general performance comparison between the two libraries.
 
 ## Conclusion
 The analysis shows that GLD prices generally increased from 2015 to 2025. The initial linear regression experiment also suggests that SPX, USO, SLV, and EUR/USD contain useful information for explaining variation in GLD prices.
