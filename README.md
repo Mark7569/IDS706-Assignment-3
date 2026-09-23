@@ -2,7 +2,7 @@
 [![Python Tests](https://github.com/Mark7569/IDS706-Assignment-2/actions/workflows/test.yml/badge.svg)](https://github.com/Mark7569/IDS706-Assignment-2/actions/workflows/test.yml)
 
 ## Project Overview
-This project analyzes gold price data from 2015 to 2025 with Python, Pandas, and polars. The dataset also contains several financial market variables, including the S&P 500 (SPX), oil (USO), silver (SLV), and the EUR/USD exchange rate. The project explores the dataset through basic data inspection, filtering, grouping, visualization, and a simple linear regression model.
+This project analyzes gold price data from 2015 to 2025 with Python, Pandas, and Polars. The dataset also contains several financial market variables, including the S&P 500 (SPX), oil (USO), silver (SLV), and the EUR/USD exchange rate. The project explores the dataset through basic data inspection, filtering, grouping, visualization, and a simple linear regression model.
 
 ## Files
 - "gold_price_analysis.py"
