@@ -1,4 +1,5 @@
 # GOLD PRICE ANALYSIS
+[![Python Tests](https://github.com/Mark7569/IDS706-Assignment-2/actions/workflows/test.yml/badge.svg)](https://github.com/Mark7569/IDS706-Assignment-2/actions/workflows/test.yml)
 
 ## Project Overview
 This project analyzes gold price data from 2015 to 2025 with Python, Pandas, and polars. The dataset also contains several financial market variables, including the S&P 500 (SPX), oil (USO), silver (SLV), and the EUR/USD exchange rate. The project explores the dataset through basic data inspection, filtering, grouping, visualization, and a simple linear regression model.
@@ -17,6 +18,36 @@ The dataset was downloaded from Kaggle. It contains six variables and 2666 obser
 - USO
 - SLV
 - EUR/USD
+
+## Setup
+Install the required Python packages:
+
+```bash
+pip install pandas scikit-learn matplotlib kagglehub pytest
+```
+
+Run the analysis with:
+
+```bash
+python gold_price_analysis.py
+```
+
+## Testing
+The project includes unit tests for data loading, preprocessing, filtering, yearly averages calculation, and linear regression modeling. An edge case is included to test filtering when no GLD prices are above 200. An entire system test is also included to validate the complete analysis workflow.
+
+Run the tests with:
+
+```bash
+python -m pytest tests/ -v
+```
+## Testing Results
+![Pytest Results](screenshots/pytest_results.png)
+
+## Continuous Integration
+GitHub Actions automatically runs the test suite whenever changes are pushed to the repository or submitted through a pull request. The workflow has completed successfully multiple times.
+
+![GitHub Actions Results](screenshots/github_actions.png)
+
 
 ## Data Inspection
 In data inspection, 'head()', 'info()', and 'describe()' were used to inspect and summarize the data. At the same time, missing values and duplicate were checked.
@@ -59,4 +90,4 @@ I also compared the runtime of the two implementations using `time.perf_counter(
 In this run, Polars was about 3.27 times faster than Pandas. However, since this dataset contains only 2,666 observations and the measured runtimes are very short, this simple benchmark should not be interpreted as a general performance comparison between the two libraries.
 
 ## Conclusion
-The analysis shows that GLD prices generally increased from 2015 to 2025. The initial linear regression experiment also suggests that SPX, USO, SLV, and EUR/USD contain useful information for explaining variation in GLD prices.
+The analysis shows that GLD prices generally increased from 2015 to 2025. The initial linear regression experiment also suggests that SPX, USO, SLV, and EUR/USD contain useful information for explaining variation in GLD prices. The project was further improved by adding automated tests and continuous integration to make the analysis more reproducible and reliable.
