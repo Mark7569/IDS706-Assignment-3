@@ -1,0 +1,9 @@
+.git
+.github
+.vscode
+__pycache__
+tests/__pycache__
+.pytest_cache
+.DS_Store
+*.pyc
+screenshots
