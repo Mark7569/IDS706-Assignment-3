@@ -23,7 +23,7 @@ The dataset was downloaded from Kaggle. It contains six variables and 2666 obser
 Install the required Python packages:
 
 ```bash
-pip install pandas scikit-learn matplotlib kagglehub pytest
+pip install pandas scikit-learn matplotlib kagglehub pytest black flake8
 ```
 
 Run the analysis with:
@@ -33,18 +33,46 @@ python gold_price_analysis.py
 ```
 
 ## Testing
-The project includes unit tests for data loading, preprocessing, filtering, yearly averages calculation, and linear regression modeling. An edge case is included to test filtering when no GLD prices are above 200. An entire system test is also included to validate the complete analysis workflow.
+The project includes unit tests for data loading, preprocessing, filtering, yearly average calculation, linear regression modeling, and visualization. An edge case tests the filtering function when no GLD prices are above 200. An entire system test is also included to validate the complete analysis workflow.
+
+The current test suite contains 8 tests.
 
 Run the tests with:
 
 ```bash
 python -m pytest tests/ -v
 ```
+
 ## Testing Results
 ![Pytest Results](screenshots/pytest_results.png)
 
+## Code Quality
+Black and Flake8 are used to maintain consistent formatting and code quality.
+
+Check code formatting with:
+
+```bash
+black --check gold_price_analysis.py tests/test_gold_price_analysis.py
+```
+
+Run linting with:
+
+```bash
+flake8 gold_price_analysis.py tests/test_gold_price_analysis.py
+```
+
+The Flake8 configuration uses a maximum line length of 88 characters to remain consistent with Black.
+
 ## Continuous Integration
-GitHub Actions automatically runs the test suite whenever changes are pushed to the repository or submitted through a pull request. The workflow has completed successfully multiple times.
+GitHub Actions automatically runs the project checks whenever changes are pushed to the repository or submitted through a pull request. The workflow is also scheduled to run weekly.
+
+The CI workflow tests the project with Python 3.10, 3.11, and 3.12. For each Python version, it:
+
+- checks code formatting with Black,
+- checks code quality with Flake8, and
+- runs the complete pytest test suite.
+
+All three Python environments currently pass the CI workflow.
 
 ![GitHub Actions Results](screenshots/github_actions.png)
 
