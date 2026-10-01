@@ -17,12 +17,28 @@ def preprocess_data(df):
     return df
 
 
-def filter_high_GLD_price(df):
+def filter_high_gld_price(df):
     return df[df["GLD"] > 200]
 
 
-def calculate_yearly_average_GLD_price(df):
+def calculate_yearly_average_gld_price(df):
     return df.groupby("Year").mean(numeric_only=True)
+
+
+def inspect_data(df):
+    print(df.head())
+
+    print("\nDataset Information:")
+    df.info()
+
+    print("\nSummary Statistics:")
+    print(df.describe())
+
+    print("\nMissing Values:")
+    print(df.isnull().sum())
+
+    print("\nNumber of Duplicate Rows:")
+    print(df.duplicated().sum())
 
 
 # ML
@@ -41,6 +57,17 @@ def train_model(df):
     return model, X_test, y_test, predictions
 
 
+def create_visualization(
+    y_test, predictions, output_path="gold_price_visualization.png"
+):
+    plt.scatter(y_test, predictions)
+    plt.xlabel("Actual GLD")
+    plt.ylabel("Predicted GLD")
+    plt.title("Actual vs Predicted GLD Prices")
+    plt.savefig(output_path, bbox_inches="tight")
+    plt.close()
+
+
 def main():
     # import the gold price dataset from kaggle
     path = kagglehub.dataset_download("mdanwarhossain200110/gold-price-2015-2025")
@@ -50,19 +77,7 @@ def main():
     df = load_data(csv_path)
 
     # inspect the dataset
-    print(df.head())
-
-    print("\nDataset Information:")
-    df.info()
-
-    print("\nSummary Statistics:")
-    print(df.describe())
-
-    print("\nMissing Values:")
-    print(df.isnull().sum())
-
-    print("\nNumber of Duplicate Rows:")
-    print(df.duplicated().sum())
+    inspect_data(df)
 
     # preprocess the data
     df = preprocess_data(df)
@@ -71,12 +86,12 @@ def main():
     df.info()
 
     # basic filtering and grouping
-    high_gold_price = filter_high_GLD_price(df)
+    high_gold_price = filter_high_gld_price(df)
 
     print("\nObservations with GLD above 200:")
     print(high_gold_price.head())
 
-    yearly_avg_gold = calculate_yearly_average_GLD_price(df)
+    yearly_avg_gold = calculate_yearly_average_gld_price(df)
 
     print("\nAverage GLD Price by Year:")
     print(yearly_avg_gold)
@@ -92,12 +107,7 @@ def main():
     print("\nR-squared:")
     print(model.score(X_test, y_test))
     # visualization
-    plt.scatter(y_test, predictions)
-    plt.xlabel("Actual GLD")
-    plt.ylabel("Predicted GLD")
-    plt.title("Actual vs Predicted GLD Prices")
-    plt.savefig("gold_price_visualization.png", bbox_inches="tight")
-    plt.show()
+    create_visualization(y_test, predictions)
 
 
 if __name__ == "__main__":

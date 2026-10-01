@@ -2,9 +2,10 @@ import pandas as pd
 from gold_price_analysis import (
     load_data,
     preprocess_data,
-    filter_high_GLD_price,
-    calculate_yearly_average_GLD_price,
+    filter_high_gld_price,
+    calculate_yearly_average_gld_price,
     train_model,
+    create_visualization,
 )
 
 
@@ -40,7 +41,7 @@ def test_preprocess_data():
 def test_filter_high_GLD_price():
     test_data = pd.DataFrame({"GLD": [180.0, 210.0, 250.0, 195.0]})
 
-    result = filter_high_GLD_price(test_data)
+    result = filter_high_gld_price(test_data)
 
     assert len(result) == 2
     assert (result["GLD"] > 200).all()
@@ -50,7 +51,7 @@ def test_filter_high_GLD_price():
 def test_filter_high_GLD_price_empty_result():
     test_data = pd.DataFrame({"GLD": [150, 160, 200]})
 
-    result = filter_high_GLD_price(test_data)
+    result = filter_high_gld_price(test_data)
 
     assert result.empty
 
@@ -64,7 +65,7 @@ def test_calculate_yearly_average_GLD_price():
         }
     )
 
-    result = calculate_yearly_average_GLD_price(test_data)
+    result = calculate_yearly_average_gld_price(test_data)
 
     assert result.loc[2020, "GLD"] == 177.5
     assert result.loc[2021, "GLD"] == 200.0
@@ -87,6 +88,18 @@ def test_train_model():
     assert len(predictions) == len(y_test)
     assert X_test.shape[1] == 4
     assert hasattr(model, "coef_")
+
+
+# 6th test for visulization
+def test_create_visualization(tmp_path):
+    output_file = tmp_path / "test_visualization.png"
+    y_test = pd.Series([150, 160, 170])
+    predictions = [152, 158, 171]
+
+    create_visualization(y_test, predictions, output_file)
+
+    assert output_file.exists()
+    assert output_file.stat().st_size > 0
 
 
 # entire system test
@@ -119,8 +132,8 @@ def test_entire_system(tmp_path):
 
     df = load_data(test_file)
     df = preprocess_data(df)
-    high_GLD_price = filter_high_GLD_price(df)
-    yearly_avg = calculate_yearly_average_GLD_price(df)
+    high_GLD_price = filter_high_gld_price(df)
+    yearly_avg = calculate_yearly_average_gld_price(df)
     model, X_test, y_test, predictions = train_model(df)
 
     assert "Year" in df.columns
