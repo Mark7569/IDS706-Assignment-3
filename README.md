@@ -48,6 +48,36 @@ GitHub Actions automatically runs the test suite whenever changes are pushed to 
 
 ![GitHub Actions Results](screenshots/github_actions.png)
 
+## Docker and Containerization
+The project is containerized with Docker so that the analysis can run in a consistent and reproducible environment.
+
+### Build the Docker Image
+```bash
+docker build -t gold-price-analysis .
+```
+
+### Run the Container
+```bash
+docker run --name gold-price-container gold-price-analysis
+```
+The container downloads the dataset, runs the full analysis, trains the regression model, and generates the visualization. A successful run exits with status code 0.
+
+### Verify the Container
+```bash
+docker ps -a
+docker images
+```
+
+### What I learned
+Containerizing the project helped me understand how Docker packages the code and its dependencies into a reproducible environment. I also practiced building images, running containers, checking container status, and verifying that the analysis produces the expected output inside the container.
+
+### Docker Evidence
+Successful image build:
+<img src="screenshots/docker_image.png" width="700">
+
+Successful container run:
+<img src="screenshots/docker_container.png" width="700">
+
 
 ## Data Inspection
 In data inspection, 'head()', 'info()', and 'describe()' were used to inspect and summarize the data. At the same time, missing values and duplicate were checked.
